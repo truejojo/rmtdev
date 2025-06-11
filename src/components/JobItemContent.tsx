@@ -1,6 +1,8 @@
 import BookmarkIcon from './BookmarkIcon';
 
 export default function JobItemContent() {
+  return <EmptyJobContent />;
+
   return (
     <section className='job-details'>
       <div>
@@ -89,17 +91,17 @@ export default function JobItemContent() {
 //   );
 // }
 
-// function EmptyJobContent() {
-//   return (
-//     <section className="job-details">
-//       <div>
-//         <div className="job-details__start-view">
-//           <p>What are you looking for?</p>
-//           <p>
-//             Start by searching for any technology your ideal job is working with
-//           </p>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+function EmptyJobContent() {
+  return (
+    <section className='job-details'>
+      <div>
+        <div className='job-details__start-view'>
+          <p>What are you looking for?</p>
+          <p>
+            Start by searching for any technology your ideal job is working with
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
