@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import type { JobItemProps } from '../types/index.ts';
 
 export const useSearchResults = (searchText: string) => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<JobItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const searchRsultsLimited = searchResults.slice(0, 7);
 
   useEffect(() => {
     if (!searchText) return;
@@ -30,5 +33,5 @@ export const useSearchResults = (searchText: string) => {
     fetchRequest();
   }, [searchText]);
 
-  return { searchResults, isLoading };
+  return [searchRsultsLimited, isLoading] as const;
 };

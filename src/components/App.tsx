@@ -18,7 +18,7 @@ import { useSearchResults } from '../hooks/SearchResults';
 
 function App() {
   const [searchText, setSearchText] = useState('');
-  const { searchResults, isLoading } = useSearchResults(searchText);
+  const [searchResults, isLoading] = useSearchResults(searchText);
 
   return (
     <>

@@ -3,7 +3,7 @@ export type SearchFormProps = {
   setSearchText: (text: string) => void;
 };
 
-type JobItemProps = {
+export type JobItemProps = {
   badgeLetters: string;
   company: string;
   daysAgo: number;
