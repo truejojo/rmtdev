@@ -1,15 +1,3 @@
-import JobItemContent from './JobItemContent';
-import Sidebar from './Sidebar';
-import type { SearchResultsProps } from '../types/index.ts';
-
-export default function Container({
-  searchResults,
-  isLoading,
-}: SearchResultsProps) {
-  return (
-    <div className='container'>
-      <Sidebar searchResults={searchResults} isLoading={isLoading} />
-      <JobItemContent />
-    </div>
-  );
+export default function Container({ children }: { children: React.ReactNode }) {
+  return <div className='container'>{children}</div>;
 }
