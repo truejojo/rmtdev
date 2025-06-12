@@ -1,13 +1,20 @@
 import JobListItem from './JobListItem';
-import type { SearchResultsProps } from '../types.ts';
+import Spinner from './Spinner.tsx';
+import type { SearchResultsProps } from '../types/index.ts';
 
-export function JobList({ searchResults }: SearchResultsProps) {
+export function JobList({ searchResults, isLoading }: SearchResultsProps) {
   return (
-    <ul className='job-list'>
-      {searchResults.map((jobItem) => (
-        <JobListItem key={jobItem.id} jobItem={jobItem} />
-      ))}
-    </ul>
+    <>
+      {isLoading && <Spinner />}
+
+      {!isLoading && (
+        <ul className='job-list'>
+          {searchResults.map((jobItem) => (
+            <JobListItem key={jobItem.id} jobItem={jobItem} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 }
 

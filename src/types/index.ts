@@ -18,4 +18,5 @@ export type JobListItemProps = {
 
 export type SearchResultsProps = {
   searchResults: JobItemProps[];
+  isLoading: boolean;
 };

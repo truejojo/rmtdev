@@ -7,11 +7,13 @@ import Header from './Header';
 function App() {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!searchText) return;
 
     const fetchRequest = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch(
           `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`,
@@ -25,6 +27,8 @@ function App() {
         setSearchResults(data.jobItems);
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -35,7 +39,7 @@ function App() {
     <>
       <Background />
       <Header searchText={searchText} setSearchText={setSearchText} />
-      <Container searchResults={searchResults} />
+      <Container searchResults={searchResults} isLoading={isLoading} />
       <Footer />
     </>
   );

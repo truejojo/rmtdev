@@ -2,9 +2,12 @@ import JobList from './JobList';
 import PaginationControls from './PaginationControls';
 import ResultsCount from './ResultsCount';
 import SortingControls from './SortingControls';
-import type { SearchResultsProps } from '../types.ts';
+import type { SearchResultsProps } from '../types/index.ts';
 
-export default function Sidebar({ searchResults }: SearchResultsProps) {
+export default function Sidebar({
+  searchResults,
+  isLoading,
+}: SearchResultsProps) {
   return (
     <div className='sidebar'>
       <div className='sidebar__top'>
@@ -12,7 +15,7 @@ export default function Sidebar({ searchResults }: SearchResultsProps) {
         <SortingControls />
       </div>
 
-      <JobList searchResults={searchResults} />
+      <JobList searchResults={searchResults} isLoading={isLoading} />
       <PaginationControls />
     </div>
   );

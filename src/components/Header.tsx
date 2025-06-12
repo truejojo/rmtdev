@@ -1,7 +1,7 @@
 import BookmarksButton from './BookmarksButton';
 import Logo from './Logo';
 import SearchForm from './SearchForm';
-import type { SearchFormProps } from '../types.ts';
+import type { SearchFormProps } from '../types/index.ts';
 
 export default function Header({ searchText, setSearchText }: SearchFormProps) {
   return (

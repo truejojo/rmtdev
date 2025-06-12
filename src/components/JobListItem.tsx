@@ -1,5 +1,5 @@
 import BookmarkIcon from './BookmarkIcon';
-import type { JobListItemProps } from '../types.ts';
+import type { JobListItemProps } from '../types/index.ts';
 
 export default function JobListItem({ jobItem }: JobListItemProps) {
   return (

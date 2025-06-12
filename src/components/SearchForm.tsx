@@ -1,4 +1,4 @@
-import type { SearchFormProps } from '../types.ts';
+import type { SearchFormProps } from '../types/index.ts';
 
 export default function SearchForm({
   searchText,
