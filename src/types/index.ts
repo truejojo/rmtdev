@@ -20,3 +20,14 @@ export type SearchResultsProps = {
   searchResults: JobItemProps[];
   isLoading: boolean;
 };
+
+export type JobItemContentProps = JobItemProps & {
+  companyURL: string;
+  coverImgURL: string;
+  description: string;
+  duration: string;
+  location: string;
+  qualifications: string[];
+  reviews: string[];
+  salary: string;
+};

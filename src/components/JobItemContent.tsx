@@ -1,20 +1,32 @@
 import BookmarkIcon from './BookmarkIcon';
+import Spinner from './Spinner';
+import { useJobId } from '../hooks/JobId';
+import { useJobItem } from '../hooks/JobItem';
 
 export default function JobItemContent() {
-  return <EmptyJobContent />;
+  const jobId = useJobId();
+  const [jobItem, isLoading] = useJobItem(jobId);
+
+  if (!jobItem) {
+    return <EmptyJobContent />;
+  }
+
+  if (isLoading) {
+    return <LoadingJobContent />;
+  }
 
   return (
     <section className='job-details'>
       <div>
-        <img src='jobItem.coverImgURL' alt='#' />
+        <img src={jobItem.coverImgURL} alt='#' />
 
-        <a className='apply-btn' href='jobItem.companyURL' target='_blank'>
+        <a className='apply-btn' href={jobItem.companyURL} target='_blank'>
           Apply
         </a>
 
         <section className='job-info'>
           <div className='job-info__left'>
-            <div className='job-info__badge'>Bade</div>
+            <div className='job-info__badge'>{jobItem.badgeLetters}</div>
             <div className='job-info__below-badge'>
               <time className='job-info__time'>Badge</time>
 
@@ -23,21 +35,21 @@ export default function JobItemContent() {
           </div>
 
           <div className='job-info__right'>
-            <h2 className='second-heading'>title</h2>
-            <p className='job-info__company'>company</p>
-            <p className='job-info__description'>description</p>
+            <h2 className='second-heading'>{jobItem.title}</h2>
+            <p className='job-info__company'>{jobItem.company}</p>
+            <p className='job-info__description'>{jobItem.description}</p>
             <div className='job-info__extras'>
               <p className='job-info__extra'>
                 <i className='fa-solid fa-clock job-info__extra-icon'></i>
-                duration
+                {jobItem.duration}
               </p>
               <p className='job-info__extra'>
                 <i className='fa-solid fa-money-bill job-info__extra-icon'></i>
-                salary
+                {jobItem.salary}
               </p>
               <p className='job-info__extra'>
                 <i className='fa-solid fa-location-dot job-info__extra-icon'></i>{' '}
-                location
+                {jobItem.location}
               </p>
             </div>
           </div>
@@ -46,13 +58,17 @@ export default function JobItemContent() {
         <div className='job-details__other'>
           <section className='qualifications'>
             <div className='qualifications__left'>
-              <h4 className='fourth-heading'>Qualifications</h4>
+              <h4 className='fourth-heading'></h4>
               <p className='qualifications__sub-text'>
                 Other qualifications may apply
               </p>
             </div>
             <ul className='qualifications__list'>
-              <li className='qualifications__item'>qualification</li>
+              {jobItem.qualifications.map((qualification, index) => (
+                <li key={index} className='qualifications__item'>
+                  {qualification}
+                </li>
+              ))}
             </ul>
           </section>
 
@@ -64,7 +80,11 @@ export default function JobItemContent() {
               </p>
             </div>
             <ul className='reviews__list'>
-              <li className='reviews__item'>review</li>
+              {jobItem.reviews.map((review, index) => (
+                <li key={index} className='reviews__item'>
+                  {review}
+                </li>
+              ))}
             </ul>
           </section>
         </div>
@@ -81,15 +101,15 @@ export default function JobItemContent() {
   );
 }
 
-// function LoadingJobContent() {
-//   return (
-//     <section className="job-details">
-//       <div>
-//         <Spinner />
-//       </div>
-//     </section>
-//   );
-// }
+function LoadingJobContent() {
+  return (
+    <section className='job-details'>
+      <div>
+        <Spinner />
+      </div>
+    </section>
+  );
+}
 
 function EmptyJobContent() {
   return (
