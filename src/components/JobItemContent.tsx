@@ -1,7 +1,7 @@
 import BookmarkIcon from './BookmarkIcon';
 import Spinner from './Spinner';
-import { useJobId } from '../hooks/JobId';
-import { useJobItem } from '../hooks/JobItem';
+import { useJobId } from '../hooks/useJobId';
+import { useJobItem } from '../hooks/useJobItem';
 
 export default function JobItemContent() {
   const jobId = useJobId();

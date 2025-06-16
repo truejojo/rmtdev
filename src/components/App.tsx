@@ -14,7 +14,7 @@ import JobList from './JobList';
 import PaginationControls from './PaginationControls';
 import ResultsCount from './ResultsCount';
 import SortingControls from './SortingControls';
-import { useSearchResults } from '../hooks/SearchResults';
+import { useSearchResults } from '../hooks/useSearchResults';
 
 function App() {
   const [searchText, setSearchText] = useState('');

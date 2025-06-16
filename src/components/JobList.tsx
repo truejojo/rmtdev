@@ -1,7 +1,7 @@
 import JobListItem from './JobListItem';
 import Spinner from './Spinner.tsx';
 import type { SearchResultsProps } from '../types/index.ts';
-import { useJobId } from '../hooks/JobId.ts';
+import { useJobId } from '../hooks/useJobId.ts';
 
 export function JobList({ searchResults, isLoading }: SearchResultsProps) {
   const jobId = useJobId();
