@@ -34,5 +34,5 @@ export const useSearchResults = (searchText: string) => {
     fetchRequest();
   }, [searchText]);
 
-  return [searchResultsLimited, isLoading, searchResultsCount] as const;
+  return { searchResultsLimited, isLoading, searchResultsCount } as const;
 };

@@ -18,7 +18,7 @@ import { useSearchResults } from '../hooks/SearchResults';
 
 function App() {
   const [searchText, setSearchText] = useState('');
-  const [searchResults, isLoading, searchResultsCount] =
+  const { searchResultsLimited, isLoading, searchResultsCount } =
     useSearchResults(searchText);
 
   return (
@@ -39,7 +39,7 @@ function App() {
             <SortingControls />
           </SidebarTop>
 
-          <JobList searchResults={searchResults} isLoading={isLoading} />
+          <JobList searchResults={searchResultsLimited} isLoading={isLoading} />
           <PaginationControls />
         </Sidebar>
         <JobItemContent />

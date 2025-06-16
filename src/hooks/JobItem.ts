@@ -28,5 +28,5 @@ export const useJobItem = (id: number) => {
     fetchJobById();
   }, [id]);
 
-  return [jobItem as JobItemContentProps, isLoading] as const;
+  return { jobItem, isLoading } as const;
 };

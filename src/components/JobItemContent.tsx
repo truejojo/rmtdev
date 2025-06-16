@@ -5,7 +5,7 @@ import { useJobItem } from '../hooks/JobItem';
 
 export default function JobItemContent() {
   const jobId = useJobId();
-  const [jobItem, isLoading] = useJobItem(jobId);
+  const { jobItem, isLoading } = useJobItem(jobId);
 
   if (!jobItem) {
     return <EmptyJobContent />;
