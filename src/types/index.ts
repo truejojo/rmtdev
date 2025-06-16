@@ -14,6 +14,7 @@ export type JobItemProps = {
 
 export type JobListItemProps = {
   jobItem: JobItemProps;
+  isActive: boolean;
 };
 
 export type SearchResultsProps = {
