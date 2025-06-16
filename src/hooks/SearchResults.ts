@@ -5,7 +5,8 @@ export const useSearchResults = (searchText: string) => {
   const [searchResults, setSearchResults] = useState<JobItemProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const searchRsultsLimited = searchResults.slice(0, 7);
+  const searchResultsLimited = searchResults.slice(0, 7);
+  const searchResultsCount = searchResults.length;
 
   useEffect(() => {
     if (!searchText) return;
@@ -33,5 +34,5 @@ export const useSearchResults = (searchText: string) => {
     fetchRequest();
   }, [searchText]);
 
-  return [searchRsultsLimited, isLoading] as const;
+  return [searchResultsLimited, isLoading, searchResultsCount] as const;
 };

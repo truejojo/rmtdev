@@ -18,7 +18,8 @@ import { useSearchResults } from '../hooks/SearchResults';
 
 function App() {
   const [searchText, setSearchText] = useState('');
-  const [searchResults, isLoading] = useSearchResults(searchText);
+  const [searchResults, isLoading, searchResultsCount] =
+    useSearchResults(searchText);
 
   return (
     <>
@@ -34,7 +35,7 @@ function App() {
       <Container>
         <Sidebar>
           <SidebarTop>
-            <ResultsCount />
+            <ResultsCount searchResultsCount={searchResultsCount} />
             <SortingControls />
           </SidebarTop>
 
