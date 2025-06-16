@@ -5,15 +5,11 @@ import { useJobItem } from '../hooks/useJobItem';
 
 export default function JobItemContent() {
   const jobId = useJobId();
-  const { jobItem, isLoading } = useJobItem(jobId);
+  const { jobItem, isLoading, error } = useJobItem(jobId);
 
-  if (!jobItem) {
-    return <EmptyJobContent />;
-  }
-
-  if (isLoading) {
-    return <LoadingJobContent />;
-  }
+  if (isLoading) return <LoadingJobContent />;
+  if (error) return <ErrorJobContent {...error} />;
+  if (!jobItem) return <EmptyJobContent />;
 
   return (
     <section className='job-details'>
@@ -100,7 +96,6 @@ export default function JobItemContent() {
     </section>
   );
 }
-
 function LoadingJobContent() {
   return (
     <section className='job-details'>
@@ -121,6 +116,18 @@ function EmptyJobContent() {
             Start by searching for any technology your ideal job is working with
           </p>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ErrorJobContent(error: Error) {
+  return (
+    <section className='job-details'>
+      <div>
+        <p className='error-message'>
+          Error loading job details: {error.message}
+        </p>
       </div>
     </section>
   );

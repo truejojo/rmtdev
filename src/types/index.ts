@@ -3,15 +3,6 @@ export type SearchFormProps = {
   setSearchText: (text: string) => void;
 };
 
-export type JobItemProps = {
-  badgeLetters: string;
-  company: string;
-  daysAgo: number;
-  id: number;
-  relevanceScore: number;
-  title: string;
-};
-
 export type JobListItemProps = {
   jobItem: JobItemProps;
   isActive: boolean;
@@ -20,6 +11,15 @@ export type JobListItemProps = {
 export type SearchResultsProps = {
   searchResults: JobItemProps[];
   isLoading: boolean;
+};
+
+export type JobItemProps = {
+  badgeLetters: string;
+  company: string;
+  daysAgo: number;
+  id: number;
+  relevanceScore: number;
+  title: string;
 };
 
 export type JobItemContentProps = JobItemProps & {

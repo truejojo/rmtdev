@@ -1,32 +1,32 @@
-import { useState, useEffect } from 'react';
 import { JobItemContentProps } from '../types';
+import { useQuery } from '@tanstack/react-query';
+
+const fetchJobById = async (id: number): Promise<JobItemContentProps> => {
+  const response = await fetch(
+    `https://bytegrad.com/course-assets/projects/rmtdev/api/data/${id}`,
+  );
+
+  if (!response.ok) {
+    const errorMessage = await response.json();
+    throw new Error(`Error fetching job item: ${errorMessage.description}`);
+  }
+
+  const data = await response.json();
+  return data.jobItem as JobItemContentProps;
+};
 
 export const useJobItem = (id: number) => {
-  const [jobItem, setJobItem] = useState<JobItemContentProps>();
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: jobItem,
+    isLoading,
+    error,
+  } = useQuery<JobItemContentProps, Error>({
+    queryKey: ['jobItem', id],
+    queryFn: () => fetchJobById(id),
+    enabled: Boolean(id),
+    staleTime: 1000 * 60 * 5,
+    retry: 3,
+  });
 
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchJobById = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await fetch(
-          `https://bytegrad.com/course-assets/projects/rmtdev/api/data/${id}`,
-        );
-        const data = await response.json();
-
-        setJobItem(data.jobItem);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchJobById();
-  }, [id]);
-
-  return { jobItem, isLoading } as const;
+  return { jobItem, isLoading, error } as const;
 };
