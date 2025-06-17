@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { API_URL } from '../constants/url';
 import { JobItemContentProps } from '../types';
+import toast from 'react-hot-toast';
 
 const fetchJobById = async (id: number): Promise<JobItemContentProps> => {
   const response = await fetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
-    const errorMessage = await response.json();
-    throw new Error(`Error fetching job item: ${errorMessage.description}`);
+    toast.error('Failed to fetch job details');
   }
 
   const data = await response.json();
