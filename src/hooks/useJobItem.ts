@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { API_URL } from '../constants/url';
+import { API_URL } from '../constants';
 import { JobItemContentProps } from '../types';
 import toast from 'react-hot-toast';
 

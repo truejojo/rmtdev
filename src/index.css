@@ -680,6 +680,11 @@ body::-webkit-scrollbar {
   color: #9fa6b0;
 }
 
+.pagination__current {
+  self-align: center;
+  self-justify: center;
+}
+
 /* JOB DETAILS */
 .job-details {
   flex: 1;

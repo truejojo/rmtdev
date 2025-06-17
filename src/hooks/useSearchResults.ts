@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from './useDebounce.ts';
-import { API_URL } from '../constants/url.ts';
+import { API_URL } from '../constants/index.ts';
 import type { JobItemProps } from '../types/index.ts';
 import toast from 'react-hot-toast';
 
@@ -12,6 +12,7 @@ const fetchSearrchResults = async (
   if (!response.ok) {
     toast.error('Failed to fetch data');
   }
+
   const data = await response.json();
   return data.jobItems as JobItemProps[];
 };

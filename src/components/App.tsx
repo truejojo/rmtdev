@@ -16,13 +16,30 @@ import ResultsCount from './ResultsCount';
 import SortingControls from './SortingControls';
 import { useSearchResults } from '../hooks/useSearchResults';
 import { Toaster } from 'react-hot-toast';
+import { MAX_RESULTS_PER_PAGE } from '../constants';
 
 function App() {
   const [searchText, setSearchText] = useState('');
-  const { searchResults, isLoading, error } = useSearchResults(searchText);
+  const { searchResults, isLoading } = useSearchResults(searchText);
+  const [currentPage, setCurrentPage] = useState(1);
+  const maxPages = searchResults
+    ? searchResults.length / MAX_RESULTS_PER_PAGE
+    : 0;
 
-  const searchResultsLimited = searchResults?.slice(0, 7) || [];
+  const searchResultsLimited =
+    searchResults?.slice(
+      (currentPage - 1) * MAX_RESULTS_PER_PAGE,
+      currentPage * MAX_RESULTS_PER_PAGE,
+    ) || [];
   const searchResultsCount = searchResults?.length || 0;
+
+  const handleClick = (direction: 'previous' | 'next') => {
+    if (direction === 'previous') {
+      setCurrentPage((prevPage) => prevPage - 1);
+    } else if (direction === 'next') {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
 
   return (
     <>
@@ -43,7 +60,11 @@ function App() {
           </SidebarTop>
 
           <JobList searchResults={searchResultsLimited} isLoading={isLoading} />
-          <PaginationControls />
+          <PaginationControls
+            onClick={handleClick}
+            currentPage={currentPage}
+            maxPages={maxPages}
+          />
         </Sidebar>
         <JobItemContent />
       </Container>
