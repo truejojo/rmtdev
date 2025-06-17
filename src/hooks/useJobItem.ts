@@ -1,10 +1,9 @@
+import { API_URL } from '../constants/url';
 import { JobItemContentProps } from '../types';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchJobById = async (id: number): Promise<JobItemContentProps> => {
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/rmtdev/api/data/${id}`,
-  );
+  const response = await fetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
     const errorMessage = await response.json();
