@@ -18,10 +18,10 @@ import { useSearchResults } from '../hooks/useSearchResults';
 
 function App() {
   const [searchText, setSearchText] = useState('');
-  const { searchResults, isLoading } = useSearchResults(searchText);
+  const { searchResults, isLoading, error } = useSearchResults(searchText);
 
-  const searchResultsLimited = searchResults.slice(0, 7);
-  const searchResultsCount = searchResults.length;
+  const searchResultsLimited = searchResults?.slice(0, 7) || [];
+  const searchResultsCount = searchResults?.length || 0;
 
   return (
     <>

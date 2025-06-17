@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { API_URL } from '../constants/url';
 import { JobItemContentProps } from '../types';
-import { useQuery } from '@tanstack/react-query';
 
 const fetchJobById = async (id: number): Promise<JobItemContentProps> => {
   const response = await fetch(`${API_URL}/${id}`);
