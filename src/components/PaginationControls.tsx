@@ -18,28 +18,30 @@ export default function PaginationControls({
   return (
     <section className='pagination'>
       {currentPage > 1 && (
-        <button
-          onClick={() => onClick('previous')}
-          type='button'
-          className='pagination__button pagination__button--prev'
-        >
+        <PaginatinControlsButton onClick={() => onClick('previous')}>
           <ArrowBottomLeftIcon />
           Page {currentPage - 1}
-        </button>
+        </PaginatinControlsButton>
       )}
-      {/* {currentPage > 0 && maxPages > 1 && (
-        <span className='pagination__current'>{currentPage}</span>
-      )} */}
       {currentPage < maxPages && (
-        <button
-          onClick={() => onClick('next')}
-          type='button'
-          className='pagination__button pagination__button--next'
-        >
+        <PaginatinControlsButton onClick={() => onClick('next')}>
           Page {currentPage + 1}
           <ArrowBottomRightIcon />
-        </button>
+        </PaginatinControlsButton>
       )}
     </section>
   );
 }
+
+type PaginationControlsButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+const PaginatinControlsButton = ({
+  children,
+  onClick,
+}: PaginationControlsButtonProps) => (
+  <button onClick={onClick} type='button' className='pagination__button'>
+    {children}
+  </button>
+);

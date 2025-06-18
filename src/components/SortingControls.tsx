@@ -7,24 +7,41 @@ export default function SortingControls({
   return (
     <section className='sorting'>
       <i className='fa-solid fa-arrow-down-short-wide'></i>
-      <button
+      <SortingControlsButton
         onClick={() => onClick('relevant')}
-        type='button'
-        className={`sorting__button sorting__button--relevant ${
-          sortType === 'relevant' ? 'sorting__button--active' : ''
-        }`}
+        isActive={sortType === 'relevant'}
       >
         Relevant
-      </button>
-      <button
+      </SortingControlsButton>
+      <SortingControlsButton
         onClick={() => onClick('recent')}
-        type='button'
-        className={`sorting__button sorting__button--recent ${
-          sortType === 'recent' ? 'sorting__button--active' : ''
-        }`}
+        isActive={sortType === 'recent'}
       >
         Recent
-      </button>
+      </SortingControlsButton>
     </section>
   );
 }
+
+type SortingControlsButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+  isActive: boolean;
+};
+
+const SortingControlsButton = ({
+  children,
+  onClick,
+  isActive,
+}: SortingControlsButtonProps) => {
+  return (
+    <button
+      onClick={onClick}
+      type='button'
+      className={`sorting__button sorting__button--recent 
+        ${isActive ? 'sorting__button--active' : ''}`}
+    >
+      {children}
+    </button>
+  );
+};

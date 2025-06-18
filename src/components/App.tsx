@@ -30,12 +30,11 @@ function App() {
     : 0;
   const searchResultsCount = searchResults?.length || 0;
 
-  const searchResultsSorted =
-    searchResults?.sort((a, b) =>
-      sortType === 'relevant'
-        ? b.relevanceScore - a.relevanceScore
-        : b.daysAgo - a.daysAgo,
-    ) || [];
+  const searchResultsSorted = [...(searchResults || [])].sort((a, b) =>
+    sortType === 'relevant'
+      ? b.relevanceScore - a.relevanceScore
+      : b.daysAgo - a.daysAgo,
+  );
 
   const searchResultsSortedAndLimited =
     searchResultsSorted?.slice(
