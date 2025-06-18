@@ -32,3 +32,12 @@ export type JobItemContentProps = JobItemProps & {
   reviews: string[];
   salary: string;
 };
+
+export type SortingControlsProps = {
+  onClick: (sortType: SortTypeProps) => void;
+  sortType: SortTypeProps;
+};
+
+export type SortTypeProps = 'relevant' | 'recent';
+
+export type PaginationDirectionProps = 'previous' | 'next';

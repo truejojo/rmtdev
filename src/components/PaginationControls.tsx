@@ -2,9 +2,10 @@ import {
   ArrowBottomLeftIcon,
   ArrowBottomRightIcon,
 } from '@radix-ui/react-icons';
+import { PaginationDirectionProps } from '../types';
 
 type PaginationControlsProps = {
-  onClick: (direction: 'previous' | 'next') => void;
+  onClick: (direction: PaginationDirectionProps) => void;
   currentPage: number;
   maxPages: number;
 };

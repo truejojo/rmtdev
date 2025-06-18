@@ -17,28 +17,41 @@ import SortingControls from './SortingControls';
 import { useSearchResults } from '../hooks/useSearchResults';
 import { Toaster } from 'react-hot-toast';
 import { MAX_RESULTS_PER_PAGE } from '../constants';
+import { SortTypeProps, PaginationDirectionProps } from '../types';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortType, setSortType] = useState<SortTypeProps>('relevant');
   const [searchText, setSearchText] = useState('');
   const { searchResults, isLoading } = useSearchResults(searchText);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const maxPages = searchResults
     ? searchResults.length / MAX_RESULTS_PER_PAGE
     : 0;
+  const searchResultsCount = searchResults?.length || 0;
 
-  const searchResultsLimited =
-    searchResults?.slice(
+  const searchResultsSorted =
+    searchResults?.sort((a, b) =>
+      sortType === 'relevant'
+        ? b.relevanceScore - a.relevanceScore
+        : b.daysAgo - a.daysAgo,
+    ) || [];
+
+  const searchResultsSortedAndLimited =
+    searchResultsSorted?.slice(
       (currentPage - 1) * MAX_RESULTS_PER_PAGE,
       currentPage * MAX_RESULTS_PER_PAGE,
     ) || [];
-  const searchResultsCount = searchResults?.length || 0;
 
-  const handleClick = (direction: 'previous' | 'next') => {
-    if (direction === 'previous') {
-      setCurrentPage((prevPage) => prevPage - 1);
-    } else if (direction === 'next') {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
+  const handlePaginationControls = (direction: PaginationDirectionProps) => {
+    direction === 'previous'
+      ? setCurrentPage((prevPage) => prevPage - 1)
+      : setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handleSortingControls = (sortType: SortTypeProps) => {
+    setCurrentPage(1);
+    sortType === 'relevant' ? setSortType('relevant') : setSortType('recent');
   };
 
   return (
@@ -56,12 +69,18 @@ function App() {
         <Sidebar>
           <SidebarTop>
             <ResultsCount searchResultsCount={searchResultsCount} />
-            <SortingControls />
+            <SortingControls
+              onClick={handleSortingControls}
+              sortType={sortType}
+            />
           </SidebarTop>
 
-          <JobList searchResults={searchResultsLimited} isLoading={isLoading} />
+          <JobList
+            searchResults={searchResultsSortedAndLimited}
+            isLoading={isLoading}
+          />
           <PaginationControls
-            onClick={handleClick}
+            onClick={handlePaginationControls}
             currentPage={currentPage}
             maxPages={maxPages}
           />
