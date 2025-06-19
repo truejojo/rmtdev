@@ -5,6 +5,7 @@ import { useJobId } from '../hooks/useJobId.ts';
 
 export function JobList({ searchResults, isLoading }: SearchResultsProps) {
   const jobId = useJobId();
+
   return (
     <>
       {isLoading && <Spinner />}

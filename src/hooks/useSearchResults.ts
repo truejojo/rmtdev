@@ -1,21 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from './useDebounce.ts';
-import { API_URL } from '../constants/index.ts';
 import type { JobItemProps } from '../types/index.ts';
-import toast from 'react-hot-toast';
-
-const fetchSearrchResults = async (
-  searchText: string,
-): Promise<JobItemProps[]> => {
-  const response = await fetch(`${API_URL}?search=${searchText}`);
-
-  if (!response.ok) {
-    toast.error('Failed to fetch data');
-  }
-
-  const data = await response.json();
-  return data.jobItems as JobItemProps[];
-};
+import { fetchSearrchResults } from '../lib/fetchSearchResults.ts';
 
 export const useSearchResults = (searchText: string) => {
   const debouncedSearchText = useDebounce(searchText, 200);
