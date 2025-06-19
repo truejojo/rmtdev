@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 
-const useLocalStorage = (key: string, initialValue: number[] = []) => {
+const useLocalStorage = <T>(
+  key: string,
+  initialValue: T,
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
   // warum einen function aufruf innerhalb von useState?
   // Damit der initiale Wert nur einmal gesetzt wird, wenn der Provider erstellt wird.
-  const [value, setValue] = useState<number[]>(() =>
-    JSON.parse(localStorage.getItem(key) || '[]'),
+  const [value, setValue] = useState(() =>
+    JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue)),
   );
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(initialValue));
-  }, [initialValue]);
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
 
   return [value, setValue] as const;
 };

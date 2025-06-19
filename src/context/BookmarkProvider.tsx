@@ -9,7 +9,7 @@ type BookmarkContextType = {
 export const BookmarkContext = createContext<BookmarkContextType | null>(null);
 
 const BookmarkProvider = ({ children }: { children: React.ReactNode }) => {
-  const [bookmarks, setBookmarks] = useLocalStorage('bookmarks');
+  const [bookmarks, setBookmarks] = useLocalStorage<number[]>('bookmarks', []);
 
   const toggleBookmark = (id: number) => {
     if (bookmarks.includes(id)) {
