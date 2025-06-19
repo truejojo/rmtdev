@@ -1,13 +1,8 @@
 import { BookmarkFilledIcon } from '@radix-ui/react-icons';
-import { BookmarkContext } from '../context/BookmarkProvider';
-import { useContext } from 'react';
+import { useBookmarkContext } from '../hooks/useBookmarkContext';
 
 export default function BookmarkIcon({ id }: { id: number }) {
-  const constext = useContext(BookmarkContext);
-  if (!constext) {
-    throw new Error('BookmarkContext is not available');
-  }
-  const { bookmarks, toggleBookmark } = constext;
+  const { bookmarks, toggleBookmark } = useBookmarkContext();
 
   const handleToggleBookmark = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,

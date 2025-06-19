@@ -41,3 +41,8 @@ export type SortingControlsProps = {
 export type SortTypeProps = 'relevant' | 'recent';
 
 export type PaginationDirectionProps = 'previous' | 'next';
+
+export type BookmarkContextType = {
+  bookmarks: number[];
+  toggleBookmark: (id: number) => void;
+};
