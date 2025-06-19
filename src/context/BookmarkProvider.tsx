@@ -1,4 +1,5 @@
-import { useState, createContext, useEffect } from 'react';
+import { createContext } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 type BookmarkContextType = {
   bookmarks: number[];
@@ -8,11 +9,7 @@ type BookmarkContextType = {
 export const BookmarkContext = createContext<BookmarkContextType | null>(null);
 
 const BookmarkProvider = ({ children }: { children: React.ReactNode }) => {
-  // warum einen function aufruf innerhalb von useState?
-  // Damit der initiale Wert nur einmal gesetzt wird, wenn der Provider erstellt wird.
-  const [bookmarks, setBookmarks] = useState<number[]>(() =>
-    JSON.parse(localStorage.getItem('bookmarks') || '[]'),
-  );
+  const [bookmarks, setBookmarks] = useLocalStorage('bookmarks');
 
   const toggleBookmark = (id: number) => {
     if (bookmarks.includes(id)) {
@@ -21,10 +18,6 @@ const BookmarkProvider = ({ children }: { children: React.ReactNode }) => {
       setBookmarks([...bookmarks, id]);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-  }, [bookmarks]);
 
   return (
     <BookmarkContext.Provider value={{ bookmarks, toggleBookmark }}>
